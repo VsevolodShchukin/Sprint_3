@@ -6,14 +6,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.notNullValue;
+import ru.yandex.scooter.methods.GetOrdersMethods;
 
 
 @RunWith(Parameterized.class)
 public class GetOrdersTests {
+
+    GetOrdersMethods method = new GetOrdersMethods();
 
 
     private final String param;
@@ -38,32 +37,13 @@ public class GetOrdersTests {
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
     }
 
-    @Step("Send Get request to /api/v1/orders: Get orders")
-    public Response sendGetRequestOrders(String param) {
-        Response response = given()
-                .header("Content-type", "application/json")
-                .and()
-                .param(param)
-                .get("/api/v1/orders");
-        return response;
-    }
-
-    @Step("Check status code")
-    public void checkStatusCode(Response response, int code) {
-        response.then().statusCode(code);
-    }
-
-    @Step("Check body from response")
-    public void checkBodyFromResponseWithNotNullValueCondition(Response response, String key) {
-        response.then().assertThat().body(key, notNullValue());
-    }
 
     @DisplayName("В тело ответа возвращается список заказов")
     @Test
     public void shouldReturnListOfOrders() {
-        Response response = sendGetRequestOrders(param);
-        checkStatusCode(response, 200);
-        checkBodyFromResponseWithNotNullValueCondition(response, "orders");
+        Response response = method.sendGetRequestOrders(param);
+        method.checkStatusCode(response, 200);
+        method.checkBodyFromResponseWithNotNullValueCondition(response, "orders");
         System.out.println(response.body().asString());
     }
 }

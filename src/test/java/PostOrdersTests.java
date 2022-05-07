@@ -8,18 +8,18 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import ru.yandex.scooter.PostOrders;
+import ru.yandex.scooter.methods.PostOrdersMethods;
+import ru.yandex.scooter.models.PostOrdersModel;
 
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(Parameterized.class)
 public class PostOrdersTests {
 
-    private final PostOrders order;
+    PostOrdersMethods method = new PostOrdersMethods();
 
-    public PostOrdersTests(PostOrders order) {
+    private final PostOrdersModel order;
+
+    public PostOrdersTests(PostOrdersModel order) {
         this.order = order;
     }
 
@@ -30,10 +30,10 @@ public class PostOrdersTests {
         int randomIntData = RandomUtils.nextInt(1, 100);
         String randomNumericStringData = RandomStringUtils.randomNumeric(5);
         return new Object[][]{
-                {new PostOrders(randomStringData, randomStringData, randomStringData, randomIntData, randomNumericStringData, randomIntData, randomNumericStringData, randomStringData, new String[]{"BLACK"})},
-                {new PostOrders(randomStringData, randomStringData, randomStringData, randomIntData, randomNumericStringData, randomIntData, randomNumericStringData, randomStringData, new String[]{"GREY"})},
-                {new PostOrders(randomStringData, randomStringData, randomStringData, randomIntData, randomNumericStringData, randomIntData, randomNumericStringData, randomStringData, new String[]{"BLACK", "GREY"})},
-                {new PostOrders(randomStringData, randomStringData, randomStringData, randomIntData, randomNumericStringData, randomIntData, randomNumericStringData, randomStringData, null)}
+                {new PostOrdersModel(randomStringData, randomStringData, randomStringData, randomIntData, randomNumericStringData, randomIntData, randomNumericStringData, randomStringData, new String[]{"BLACK"})},
+                {new PostOrdersModel(randomStringData, randomStringData, randomStringData, randomIntData, randomNumericStringData, randomIntData, randomNumericStringData, randomStringData, new String[]{"GREY"})},
+                {new PostOrdersModel(randomStringData, randomStringData, randomStringData, randomIntData, randomNumericStringData, randomIntData, randomNumericStringData, randomStringData, new String[]{"BLACK", "GREY"})},
+                {new PostOrdersModel(randomStringData, randomStringData, randomStringData, randomIntData, randomNumericStringData, randomIntData, randomNumericStringData, randomStringData, null)}
         };
     }
 
@@ -43,33 +43,14 @@ public class PostOrdersTests {
         RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
     }
 
-    @Step("Send Post request to /api/v1/orders: Create order")
-    public Response sendPostRequestOrders(PostOrders order) {
-        Response response = given()
-                .header("Content-type", "application/json")
-                .and()
-                .body(order)
-                .when()
-                .post("/api/v1/orders");
-        return response;
-    }
 
-    @Step("Check status code")
-    public void checkStatusCode(Response response, int code) {
-        response.then().statusCode(code);
-    }
-
-    @Step("Check body from response")
-    public void checkBodyFromResponseWithNotNullValueCondition(Response response, String key) {
-        response.then().assertThat().body(key, notNullValue());
-    }
 
     @Test
     @DisplayName("Должен создавать новый заказ")
     public void shouldCreateNewOrder() {
-        Response response = sendPostRequestOrders(order);
-        checkStatusCode(response, 201);
-        checkBodyFromResponseWithNotNullValueCondition(response, "track");
+        Response response = method.sendPostRequestOrders(order);
+        method.checkStatusCode(response, 201);
+        method.checkBodyFromResponseWithNotNullValueCondition(response, "track");
     }
 
 

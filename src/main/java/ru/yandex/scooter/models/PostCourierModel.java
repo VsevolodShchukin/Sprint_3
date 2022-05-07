@@ -1,25 +1,20 @@
-package ru.yandex.scooter;
+package ru.yandex.scooter.models;
 
-
-public class PostCourier {
+public class PostCourierModel {
 
     private String login;
     private String password;
     private String firstName;
 
-    public PostCourier(String login, String password, String firstName) {
+    public PostCourierModel(String login, String password, String firstName) {
         this.login = login;
         this.password = password;
         this.firstName = firstName;
     }
 
-    public PostCourier(String login, String password) {
+    public PostCourierModel(String login, String password) {
         this.login = login;
         this.password = password;
-    }
-
-    public PostCourier() {
-
     }
 
     public String getLogin() {
@@ -28,10 +23,6 @@ public class PostCourier {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getFirstName() {
-        return firstName;
     }
 
     public void setLogin(String login) {
