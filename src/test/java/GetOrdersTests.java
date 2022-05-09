@@ -12,7 +12,6 @@ public class GetOrdersTests {
 
     GetOrdersMethods method = new GetOrdersMethods();
 
-
     private final String param;
 
     public GetOrdersTests(String param) {

@@ -6,7 +6,9 @@ import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.junit.Assert;
+import ru.yandex.scooter.models.BasePost;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class BaseMethods {
@@ -20,7 +22,37 @@ public class BaseMethods {
                 .build();
     }
 
+    @Step("Send Post request")
+    public static Response sendPostRequest(BasePost request, String url) {
+        Response response = given()
+                .spec(getBaseSpec())
+                .and()
+                .body(request)
+                .when()
+                .post(url);
+        return response;
+    }
 
+    @Step("Send Get request")
+    public static Response sendGetRequest(String param, String url) {
+        Response response = given()
+                .spec(getBaseSpec())
+                .and()
+                .param(param)
+                .get(url);
+        return response;
+    }
+
+    @Step("Send Delete request")
+    public static Response sendDeleteRequest(String request, String url) {
+        Response response = given()
+                .spec(getBaseSpec())
+                .and()
+                .body(request)
+                .when()
+                .delete(url);
+        return response;
+    }
 
 
     @Step("Check status code")

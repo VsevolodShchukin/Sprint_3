@@ -1,6 +1,6 @@
 package ru.yandex.scooter.models;
 
-public class PostOrdersModel {
+public class PostOrdersModel implements BasePost{
 
     private String firstName;
     private String lastName;

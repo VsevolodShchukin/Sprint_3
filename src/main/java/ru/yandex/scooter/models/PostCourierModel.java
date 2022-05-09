@@ -1,6 +1,6 @@
 package ru.yandex.scooter.models;
 
-public class PostCourierModel {
+public class PostCourierModel implements BasePost{
 
     private String login;
     private String password;
@@ -19,6 +19,10 @@ public class PostCourierModel {
 
     public String getLogin() {
         return login;
+    }
+
+    public String getFirstName() {
+        return firstName;
     }
 
     public String getPassword() {

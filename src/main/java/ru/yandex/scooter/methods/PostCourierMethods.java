@@ -4,33 +4,14 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import ru.yandex.scooter.models.PostCourierModel;
 
-import static io.restassured.RestAssured.given;
-
 public class PostCourierMethods extends BaseMethods {
 
+    private final String url = "/api/v1/courier";
 
     @Step("Send Post request to /api/v1/courier: Create courier")
     public Response sendPostRequestCourier(PostCourierModel postCourier) {
-        Response response = given()
-                .spec(getBaseSpec())
-                .and()
-                .body(postCourier)
-                .when()
-                .post("/api/v1/courier");
+        Response response = sendPostRequest(postCourier, url);
         return response;
     }
-
-    @Step("Prepare data for post request: /api/v1/courier/courier")
-    public PostCourierModel prepareDataForPostRequestCourier(String login, String password, String firstName) {
-        PostCourierModel postCourier = new PostCourierModel(login, password, firstName);
-        return postCourier;
-    }
-
-    @Step("Prepare data for post request: /api/v1/courier/courier")
-    public PostCourierModel prepareRandomDataForPostRequestCourier(String randomData) {
-        PostCourierModel postCourier = new PostCourierModel(randomData, randomData, randomData);
-        return postCourier;
-    }
-
 
 }
