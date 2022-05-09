@@ -12,7 +12,7 @@ public class PostOrdersMethods extends BaseMethods {
     @Step("Send Post request to /api/v1/orders: Create order")
     public Response sendPostRequestOrders(PostOrdersModel order) {
         Response response = given()
-                .header("Content-type", "application/json")
+                .spec(getBaseSpec())
                 .and()
                 .body(order)
                 .when()

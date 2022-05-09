@@ -12,7 +12,7 @@ public class PostCourierMethods extends BaseMethods {
     @Step("Send Post request to /api/v1/courier: Create courier")
     public Response sendPostRequestCourier(PostCourierModel postCourier) {
         Response response = given()
-                .header("Content-type", "application/json")
+                .spec(getBaseSpec())
                 .and()
                 .body(postCourier)
                 .when()

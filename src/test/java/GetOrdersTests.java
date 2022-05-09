@@ -1,8 +1,6 @@
 import io.qameta.allure.Step;
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -30,11 +28,6 @@ public class GetOrdersTests {
                 {"?limit=10&page=0"},
                 {"?limit=10&page=0&nearestStation=[\"110\"]"}
         };
-    }
-
-    @Before
-    public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
     }
 
 

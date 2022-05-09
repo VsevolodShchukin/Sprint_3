@@ -14,7 +14,7 @@ public class PostLoginMethods extends BaseMethods {
     @Step("Send Post request to /api/v1/courier/login: Login courier")
     public Response sendPostRequestLogin(PostCourierModel postCourier) {
         Response response = given()
-                .header("Content-type", "application/json")
+                .spec(getBaseSpec())
                 .and()
                 .body(postCourier)
                 .when()
@@ -33,7 +33,7 @@ public class PostLoginMethods extends BaseMethods {
     public PostCourierModel createRandomCourierForTest() {
         PostCourierModel postCourier = new PostCourierModel(RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10), RandomStringUtils.randomAlphabetic(10));
         Response response = given()
-                .header("Content-type", "application/json")
+                .spec(getBaseSpec())
                 .and()
                 .body(postCourier)
                 .when()

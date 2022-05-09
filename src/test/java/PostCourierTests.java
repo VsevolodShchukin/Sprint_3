@@ -1,8 +1,6 @@
 import io.qameta.allure.junit4.DisplayName;
-import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.junit.Before;
 import org.junit.Test;
 import ru.yandex.scooter.methods.PostCourierMethods;
 import ru.yandex.scooter.models.PostCourierModel;
@@ -15,12 +13,6 @@ public class PostCourierTests {
     private String body400 = "{\"message\": \"Недостаточно данных для создания учетной записи\"}";
     private String body409 = "{\"message\": \"Этот логин уже используется\"}";
     PostCourierMethods method = new PostCourierMethods();
-
-
-    @Before
-    public void setUp() {
-        RestAssured.baseURI = "https://qa-scooter.praktikum-services.ru";
-    }
 
 
     @DisplayName("Чтобы создать курьера, нужно передать в ручку все обязательные поля: missed login")
